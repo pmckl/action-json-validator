@@ -1,0 +1,12 @@
+name: 'Validate Json.'
+description: 'Validate a json against a schema'
+inputs:
+  schema:
+    description: 'Schema file'
+    required: true
+  config:
+    description: 'Config file'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

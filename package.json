@@ -1,0 +1,25 @@
+{
+  "name": "action-json-validator",
+  "version": "1.0.0",
+  "description": "Github action for Json validation against a schema.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "ncc build index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pmckl/action-json-validator.git"
+  },
+  "author": "pmckl",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.0",
+    "jsonschema": "^1.4.0"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pmckl/action-json-validator/issues"
+  },
+  "homepage": "https://github.com/pmckl/action-json-validator#readme"
+}
