@@ -6,11 +6,18 @@ This will validate a json file against a json schema file.
 
 - TBD
 
+## Inputs
+
+## `schema`
+**Required** The Schema file to run the validate against.
+## `config`
+**Required** The Config file to run the validate against.
+
 # Usage
 
-See [sample/wf.yml](sample/wf.yml)
+See [example/wf.yml](example/wf.yml)
 
-### Usage
+### Sample
 
 ```yaml
 steps:

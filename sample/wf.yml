@@ -1,0 +1,12 @@
+on: [push]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: A job to validate schema
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pmckl/action-json-validator@main
+        with:
+          schema: path/to/schema_file.json
+          config: path/to/config_file.json
