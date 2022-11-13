@@ -7,6 +7,9 @@ inputs:
   config:
     description: 'Config file'
     required: true
+  github_token:
+    description: 'Github token to create / update pull-request comments.'
+    required: false
 runs:
   using: 'node16'
   main: 'dist/index.js'
