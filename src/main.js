@@ -18,20 +18,37 @@ function getPullRequestNumber() {
 }
 function createOrUpdateComment(firstline,body){
   const octokit = github.getOctokit(githubToken)
+  let commentId = 0;
   octokit.rest.issues.listComments({
     owner: githubPayload.repository.owner.login,
     repo: githubPayload.repository.name,
     issue_number: getPullRequestNumber()
-  }).then((comments) => {
-    console.log(comments);
+  }).then((resp) => {
+    const comments = resp.data;
+    comments.forEach((comment) => {
+      if(comment.body.startsWith(firstline)){
+        commentId = comment.id;
+      }
+    });
   })
-
-  octokit.rest.issues.createComment({
-    owner: githubPayload.repository.owner.login,
-    repo: githubPayload.repository.name,
-    issue_number: getPullRequestNumber(),
-    body: body
-  });
+  if(commentId > 0){
+    // update
+    octokit.rest.issues.updateComment({
+      owner: githubPayload.repository.owner.login,
+      repo: githubPayload.repository.name,
+      comment_id: commentId,
+      body: body
+    })
+  }
+  else{
+    // create
+    octokit.rest.issues.createComment({
+      owner: githubPayload.repository.owner.login,
+      repo: githubPayload.repository.name,
+      issue_number: getPullRequestNumber(),
+      body: body
+    });
+  }
 }
 async function run() {
     try {
