@@ -5,6 +5,7 @@ const readfile = require('./readfile');
 const parsejson = require('./parsejson');
 const validate = require('./validate');
 
+const githubToken = core.getInput('github_token');
 function isPullRequest() {
   const context = github.context;
   return context.payload.pull_request !== undefined;
@@ -13,7 +14,7 @@ function getPullRequestNumber() {
   return github.context.payload.pull_request.number;
 }
 function createOrUpdateComment(firstline,body){
-  const octokit = github.getOctokit(github_token)
+  const octokit = github.getOctokit(githubToken)
   console.log(github.context);
   octokit.rest.issues.createComment({
     owner: github.context.repo.owner,
