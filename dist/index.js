@@ -11349,12 +11349,11 @@ function wrappy (fn, cb) {
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
 
-module.exports = function (owner,repo,body,prId,commentId){
+module.exports = async function (owner,repo,body,prId,commentId){
     const githubToken = core.getInput('github_token');
     const octokit = github.getOctokit(githubToken);
     if(commentId > 0){
-        console.log("Updating comment");
-        octokit.rest.issues.updateComment({
+        await octokit.rest.issues.updateComment({
             owner: owner,
             repo: repo,
             comment_id: commentId,
@@ -11362,8 +11361,7 @@ module.exports = function (owner,repo,body,prId,commentId){
         })
     }
     else{
-        console.log("Creating comment");
-        octokit.rest.issues.createComment({
+        await octokit.rest.issues.createComment({
             owner: owner,
             repo: repo,
             issue_number: prId,
@@ -11640,7 +11638,7 @@ function getPullRequestNumber() {
 function createPullRequestComment(){
   return core.getInput('pull_request_comment') === 'true';
 }
-function createOrUpdateComment(firstline,body){
+async function createOrUpdateComment(firstline,body){
   const octokit = github.getOctokit(githubToken)
   let commentId = 0;
   octokit.rest.issues.listComments({

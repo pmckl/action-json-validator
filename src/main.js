@@ -20,7 +20,7 @@ function getPullRequestNumber() {
 function createPullRequestComment(){
   return core.getInput('pull_request_comment') === 'true';
 }
-function createOrUpdateComment(firstline,body){
+async function createOrUpdateComment(firstline,body){
   const octokit = github.getOctokit(githubToken)
   let commentId = 0;
   octokit.rest.issues.listComments({
