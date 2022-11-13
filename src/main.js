@@ -17,8 +17,8 @@ function createOrUpdateComment(firstline,body){
   const octokit = github.getOctokit(githubToken)
   console.log(github.context);
   octokit.rest.issues.createComment({
-    owner: github.context.repo.owner,
-    repo: github.context.repo.repo,
+    owner: github.context.repository.owner.login,
+    repo: github.context.repository.name,
     issue_number: getPullRequestNumber(),
     body: body
   });
