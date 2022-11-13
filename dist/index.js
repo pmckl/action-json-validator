@@ -11619,25 +11619,26 @@ function createOrUpdateComment(firstline,body){
         commentId = comment.id;
       }
     });
-  })
-  if(commentId > 0){
-    // update
-    octokit.rest.issues.updateComment({
-      owner: githubPayload.repository.owner.login,
-      repo: githubPayload.repository.name,
-      comment_id: commentId,
-      body: body
-    })
-  }
-  else{
-    // create
-    octokit.rest.issues.createComment({
-      owner: githubPayload.repository.owner.login,
-      repo: githubPayload.repository.name,
-      issue_number: getPullRequestNumber(),
-      body: body
-    });
-  }
+  }).finally(() => {
+    if(commentId > 0){
+      // update
+      octokit.rest.issues.updateComment({
+        owner: githubPayload.repository.owner.login,
+        repo: githubPayload.repository.name,
+        comment_id: commentId,
+        body: body
+      })
+    }
+    else{
+      // create
+      octokit.rest.issues.createComment({
+        owner: githubPayload.repository.owner.login,
+        repo: githubPayload.repository.name,
+        issue_number: getPullRequestNumber(),
+        body: body
+      });
+    }
+  });
 }
 async function run() {
     try {
