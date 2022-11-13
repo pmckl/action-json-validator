@@ -11604,6 +11604,7 @@ function getPullRequestNumber() {
 }
 function createOrUpdateComment(firstline,body){
   const octokit = github.getOctokit(githubToken)
+  console.dir(github.context.repository, { depth: null })
   octokit.rest.issues.listComments({
     owner: github.context.repository.owner.login,
     repo: github.context.repository.name,
