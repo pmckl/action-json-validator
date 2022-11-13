@@ -7,8 +7,10 @@ const validate = require('./validate');
 
 function isPullRequest() {
   const context = github.context;
-  console.log(context.payload)
-  return true;
+  return context.payload.pull_request !== undefined;
+}
+function getPullRequestNumber() {
+  return github.context.context.payload.pull_request.number;
 }
 async function run() {
     try {
@@ -17,7 +19,7 @@ async function run() {
         const result = validate(parsejson(schema), parsejson(config));
         if (result.length > 0) {
           if(isPullRequest()){
-
+            console.log(getPullRequestNumber())
           }
           core.setFailed(result);
         }
