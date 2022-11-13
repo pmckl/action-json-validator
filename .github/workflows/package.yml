@@ -29,6 +29,16 @@ jobs:
           git add dist/
           git commit -m "(chore) updating dist" || echo "No changes to commit"
           git push origin HEAD:main
+      - name: build container
+        run: docker build -t action-json-validator:${{ steps.version.outputs.new_tag }} .
+      - run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
+      - name: tag and push
+        run: |
+          docker tag action-json-validator:${{ steps.version.outputs.new_tag }} pmckl/action-json-validator:${{ steps.version.outputs.new_tag }}
+          docker tag action-json-validator:${{ steps.version.outputs.new_tag }} pmckl/action-json-validator:latest
+          
+          docker push pmckl/action-json-validator:${{ steps.version.outputs.new_tag }}
+          docker push pmckl/action-json-validator:latest
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
