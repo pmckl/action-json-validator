@@ -11599,7 +11599,7 @@ function isPullRequest() {
   return context.payload.pull_request !== undefined;
 }
 function getPullRequestNumber() {
-  return github.context.context.payload.pull_request.number;
+  return github.context.payload.pull_request.number;
 }
 async function run() {
     try {
