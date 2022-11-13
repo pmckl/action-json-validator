@@ -38,8 +38,8 @@ function createOrUpdateComment(firstline,body){
       githubPayload.repository.owner.login,
       githubPayload.repository.name,
       body,
-      commentId,
-      getPullRequestNumber()
+      getPullRequestNumber(),
+      commentId
     );
   });
 }
