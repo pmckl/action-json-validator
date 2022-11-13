@@ -11601,6 +11601,16 @@ function isPullRequest() {
 function getPullRequestNumber() {
   return github.context.payload.pull_request.number;
 }
+function createOrUpdateComment(firstline,body){
+  const octokit = github.getOctokit(github_token)
+  console.log(github.context);
+  octokit.rest.issues.createComment({
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    issue_number: getPullRequestNumber(),
+    body: body
+  });
+}
 async function run() {
     try {
         const schema = readfile(core.getInput('schema'));
@@ -11608,7 +11618,9 @@ async function run() {
         const result = validate(parsejson(schema), parsejson(config));
         if (result.length > 0) {
           if(isPullRequest()){
-            console.log(getPullRequestNumber())
+            const firstLine = `## JSON validation errors in: ${core.getInput('config')}`
+            const body = `${firstLine}\n\n${result.join('\n')}`
+            createOrUpdateComment(firstLine,body)
           }
           core.setFailed(result);
         }
