@@ -2,7 +2,7 @@
     "id": "/SimplePerson",
     "type": "object",
     "properties": {
-      "name": {"type": "string"},
+      "name": {"type": "string","required": true},
       "address": {
         "lines": {
           "type": "array",

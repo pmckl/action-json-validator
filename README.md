@@ -23,6 +23,18 @@ This action can be used to validate a json file against a json schema definition
 
 # Usage
 
+### Local
+
+Example usage:
+```bash
+docker run \
+-e INPUT_SCHEMA="/test/test-files/schema.json" \
+-e INPUT_CONFIG="/test/test-files/config.json" \
+--rm \
+-v "$(pwd)"/test:/test \
+pmckl/action-json-validator:latest
+```
+
 ### Simple
 
 ```yaml
