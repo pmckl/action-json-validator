@@ -11595,27 +11595,29 @@ const parsejson = __nccwpck_require__(1641);
 const validate = __nccwpck_require__(1002);
 
 const githubToken = core.getInput('github_token');
+
+const githubContext = github.context;
+const githubPayload = githubContext.payload;
+
 function isPullRequest() {
-  const context = github.context;
-  return context.payload.pull_request !== undefined;
+  return githubPayload.pull_request !== undefined;
 }
 function getPullRequestNumber() {
-  return github.context.payload.pull_request.number;
+  return githubPayload.pull_request.number;
 }
 function createOrUpdateComment(firstline,body){
   const octokit = github.getOctokit(githubToken)
-  console.dir(github.context, { depth: null })
   octokit.rest.issues.listComments({
-    owner: github.context.repository.owner.login,
-    repo: github.context.repository.name,
+    owner: githubPayload.repository.owner.login,
+    repo: githubPayload.repository.name,
     issue_number: getPullRequestNumber()
   }).then((comments) => {
     console.log(comments);
   })
 
   octokit.rest.issues.createComment({
-    owner: github.context.repository.owner.login,
-    repo: github.context.repository.name,
+    owner: githubPayload.repository.owner.login,
+    repo: githubPayload.repository.name,
     issue_number: getPullRequestNumber(),
     body: body
   });
