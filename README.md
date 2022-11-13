@@ -23,6 +23,22 @@ This action can be used to validate a json file against a json schema definition
 
 # Usage
 
+### Local
+Build the container based on the `Dockerfile`
+```bash
+docker build -t action-json-validator .
+```
+
+Example usage:
+```bash
+docker run \
+-e INPUT_SCHEMA="/test/test-files/schema.json" \
+-e INPUT_CONFIG="/test/test-files/config.json" \
+--rm \
+-v "$(pwd)"/test:/test \
+action-json-validator:latest
+```
+
 ### Simple
 
 ```yaml
