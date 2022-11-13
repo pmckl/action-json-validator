@@ -11349,9 +11349,9 @@ function wrappy (fn, cb) {
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
 
-const githubToken = core.getInput('github_token');
-const octokit = github.getOctokit(githubToken)
 module.exports = function (owner,repo,body,prId,commentId){
+    const githubToken = core.getInput('github_token');
+    const octokit = github.getOctokit(githubToken)
     if(commentId > 0){
         octokit.rest.issues.updateComment({
             owner: owner,
