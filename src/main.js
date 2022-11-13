@@ -7,7 +7,6 @@ const validate = require('./validate');
 const comment = require('./comment');
 
 const githubToken = core.getInput('github_token');
-const createPullRequestComment = core.getInput('github_token');
 
 const githubContext = github.context;
 const githubPayload = githubContext.payload;
