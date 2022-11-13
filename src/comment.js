@@ -3,8 +3,9 @@ const github = require('@actions/github');
 
 module.exports = function (owner,repo,body,prId,commentId){
     const githubToken = core.getInput('github_token');
-    const octokit = github.getOctokit(githubToken)
+    const octokit = github.getOctokit(githubToken);
     if(commentId > 0){
+        console.log("Updating comment");
         octokit.rest.issues.updateComment({
             owner: owner,
             repo: repo,
@@ -13,6 +14,7 @@ module.exports = function (owner,repo,body,prId,commentId){
         })
     }
     else{
+        console.log("Creating comment");
         octokit.rest.issues.createComment({
             owner: owner,
             repo: repo,
