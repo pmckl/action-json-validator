@@ -5,5 +5,6 @@
       "city": "Washington",
       "country": "USA"
     },
-    "votes": 100
+    "votes": 100,
+    "delegates": 0
   }

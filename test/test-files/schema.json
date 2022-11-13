@@ -1,9 +1,8 @@
 {
     "id": "/SimplePerson",
     "type": "object",
-    "additionalProperties": false,
     "properties": {
-      "name": {"type": "string", "required": true},
+      "name": {"type": "string"},
       "address": {
         "lines": {
           "type": "array",

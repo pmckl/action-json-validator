@@ -1,31 +1,64 @@
 # action-json-validator
 
-This will validate a json file against a json schema file.
+This action can be used to validate a json file against a json schema definition.
 
 # What's new
 
-- TBD
+- PR Comment(s)
+  If the action used in a pull-request, then it can create a comment and update the exact same comment with the found problem(s) in the json file.
 
 ## Inputs
 
-## `schema`
-**Required** The Schema file to run the validate against.
-## `config`
-**Required** The Config file to run the validate against.
+### `schema`
+**Required** The JSON schema definition file.
+
+### `config`
+**Required** The JSON configuration file.
+
+### `github_token`
+**Optional** Github token to create / update pull-request comments.
+
+### `pull_request_comment`
+**Optional** Feature flag to create a pull-request comment.
 
 # Usage
 
-See [example/wf.yml](example/wf.yml)
-
-### Sample
+### Simple
 
 ```yaml
-steps:
-- uses: actions/checkout@v2
+---
+name: pull-request-json-validator
+on:
+  pull_request:
+jobs:
+  run-validator:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pmckl/action-json-validator@refactor
+        name: Validator
+        with:
+          schema: json-validator/schema.json
+          config: json-validator/config.json
+```
 
+### Advanced
 
-- uses: pmckl/action-json-validator@main
-  with:
-    schema: path/to/schema_file.json
-    config: path/to/config_file.json
+```yaml
+---
+name: pull-request-json-validator
+on:
+  pull_request:
+jobs:
+  run-validator:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pmckl/action-json-validator@refactor
+        name: Validator
+        with:
+          schema: json-validator/schema.json
+          config: json-validator/invalid-config.json
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pull_request_comment: true
 ```

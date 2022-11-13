@@ -1,0 +1,19 @@
+---
+name: pull-request
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+jobs:
+  run-tests:
+    name: "Build & test"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Package & Test
+        run: |
+          npm i
+          npm run build
+          npm test

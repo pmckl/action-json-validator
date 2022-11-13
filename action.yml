@@ -2,11 +2,18 @@ name: 'Validate Json.'
 description: 'Validate a json against a schema'
 inputs:
   schema:
-    description: 'Schema file'
+    description: 'The JSON schema definition file.'
     required: true
   config:
-    description: 'Config file'
+    description: 'The JSON configuration file.'
     required: true
+  github_token:
+    description: 'Github token to create / update pull-request comments.'
+    required: false
+  pull_request_comment:
+    description: 'Feature flag to create a pull-request comment.'
+    required: false
+    default: 'false'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'
